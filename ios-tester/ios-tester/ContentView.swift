@@ -8,6 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    var body: some View {
+        ZStack {
+            ReportForm(apiKey: "Hello World")
+        }
+    }
+}
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+struct ReportForm: View {
+    @State var apiKey: String
     @State var report: String = ""
     @State var placeholder: String = "Additional information (optional)"
     
@@ -30,7 +46,7 @@ struct ContentView: View {
             }
             
             Button(action: {
-                print("Button action")
+                print("\(apiKey)")
             }) {
                 Text("Submit")
                     .padding(10.0)
@@ -47,9 +63,8 @@ struct ContentView: View {
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
+struct ReportFormPreview: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ReportForm(apiKey: "Test")
     }
 }
