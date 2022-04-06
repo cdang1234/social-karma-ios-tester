@@ -9,28 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     @State var report: String = ""
+    @State var placeholder: String = "Tell us more..."
     
     var body: some View {
-        VStack(alignment: .leading) {
-            TextField("Enter report...", text: $report)
-                .textFieldStyle(MyTextFieldStyle())
-                .font(Font.system(size: 16, design: .default))
-                .multilineTextAlignment(.leading)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).border(Color.red).padding()
-    }
-}
-
-
-struct MyTextFieldStyle: TextFieldStyle {
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(Color.gray, lineWidth: 3)
-                .frame(height: 400)
-        )
-        .padding()
+        ZStack {
+            if self.report.isEmpty {
+                    TextEditor(text: $placeholder)
+                        .font(.body)
+                        .foregroundColor(.gray)
+                        .disabled(true)
+                        .padding()
+            }
+            TextEditor(text: $report)
+                .font(.body)
+                .opacity(self.report.isEmpty ? 0.25 : 1)
+                .padding()
+        }
     }
 }
 
