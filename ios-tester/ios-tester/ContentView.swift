@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 struct ContentView: View {
     var body: some View {
@@ -46,7 +50,30 @@ struct ReportForm: View {
             }
             
             Button(action: {
-                print("\(apiKey)")
+                let semaphore = DispatchSemaphore (value: 0)
+
+                let parameters = "{\"ReportedUserId\": \"127\", \"ReportingUserId\": \"20\", \"Offense\": 1, \"Title\": \"Test\", \"Description\": \"our moderation team caught chris performing an imposter scam through X means with Y victim\", \"Status\": 1, \"Priority\": 1}"
+                let postData = parameters.data(using: .utf8)
+
+                var request = URLRequest(url: URL(string: "https://api.socialkarma.xyz/api/v1/report")!,timeoutInterval: Double.infinity)
+                request.addValue("22f30b08-b169-11ec-b909-0242ac120002", forHTTPHeaderField: "Auth")
+                request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+
+                request.httpMethod = "POST"
+                request.httpBody = postData
+
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                  guard let data = data else {
+                    print(String(describing: error))
+                    semaphore.signal()
+                    return
+                  }
+                  print(String(data: data, encoding: .utf8)!)
+                  semaphore.signal()
+                }
+
+                task.resume()
+                semaphore.wait()
             }) {
                 Text("Submit")
                     .padding(10.0)
