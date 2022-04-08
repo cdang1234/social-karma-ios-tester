@@ -1,5 +1,0 @@
-project '../ios-tester.xcodeproj'
-
-target 'ios-tester' do
-  pod 'SocialKarma', :path => '../../../social-karma-ios-sdk'
-end

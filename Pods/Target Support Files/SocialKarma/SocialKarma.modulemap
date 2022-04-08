@@ -1,0 +1,6 @@
+framework module SocialKarma {
+  umbrella header "SocialKarma-umbrella.h"
+
+  export *
+  module * { export * }
+}

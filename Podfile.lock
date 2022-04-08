@@ -1,0 +1,16 @@
+PODS:
+  - SocialKarma (0.0.1)
+
+DEPENDENCIES:
+  - SocialKarma (from `../social-karma-ios-sdk`)
+
+EXTERNAL SOURCES:
+  SocialKarma:
+    :path: "../social-karma-ios-sdk"
+
+SPEC CHECKSUMS:
+  SocialKarma: 409a91404603cb31c129872d8fd77a3b2e6b22a4
+
+PODFILE CHECKSUM: 89193eb62abb63992ed83d09619cc38d983237d7
+
+COCOAPODS: 1.11.3
