@@ -9,13 +9,8 @@ import SwiftUI
 import SocialKarma
 
 struct ContentView: View {
-    @State private var showingSheet = false
-
     var body: some View {
-        Button("Report") {
-            showingSheet.toggle()
-        }
-        .sheet(isPresented: $showingSheet) {
+        ZStack {
             SocialKarma.init(apiKey: "foobar")
         }
     }
